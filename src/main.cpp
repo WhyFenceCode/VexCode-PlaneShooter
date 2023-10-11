@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       WhyFenceCode                                              */
+/*    Author:       C:\Users\whyfe                                            */
 /*    Created:      Mon Jan 30 2023                                           */
 /*    Description:  V5 project                                                */
 /*                                                                            */
@@ -98,6 +98,7 @@ void Run(){
     if(Controller1.ButtonB.pressing() && Mag < 1){
       Mag = FullMag;
       reMessage = false;
+      Controller1.Screen.clearScreen();
     }
 
     MotorA.setVelocity(a, percent);
@@ -116,11 +117,17 @@ void Run(){
     }
 
     if (Mag < 1 && reMessage == false){
-      Controller1.Screen.print("No More Bullets");
+      Controller1.Screen.newLine();
+      Controller1.Screen.print("No More Bullets!!!");
       Controller1.Screen.newLine();
       Controller1.Screen.newLine();
-      Controller1.Screen.print("Press B When Reloaded");
+      Controller1.Screen.print("Press B To Signal A Reload!");
       reMessage = true;
+    }
+
+    if (Brain.Battery.capacity() < 10){
+      Controller1.Screen.newLine();
+      Controller1.Screen.print("Robot Battery Low!");
     }
 
   }
