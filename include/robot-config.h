@@ -10,6 +10,7 @@ extern motor MotorC;
 extern motor MotorD;
 extern motor UpMotor;
 extern motor ReLoadMotor;
+extern motor_group MagMotors;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Pro.
