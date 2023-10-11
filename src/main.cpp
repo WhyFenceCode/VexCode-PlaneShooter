@@ -1,7 +1,7 @@
 /*----------------------------------------------------------------------------*/
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
-/*    Author:       C:\Users\whyfe                                            */
+/*    Author:       WhyFenceCode                                              */
 /*    Created:      Mon Jan 30 2023                                           */
 /*    Description:  V5 project                                                */
 /*                                                                            */
