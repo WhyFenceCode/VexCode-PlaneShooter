@@ -17,6 +17,7 @@
 // MotorD               motor         19              
 // UpMotor              motor         17              
 // ReLoadMotor          motor         6               
+// MagMotors            motor_group   12, 13          
 // ---- END VEXCODE CONFIGURED DEVICES ----
 
 #include "vex.h"
@@ -24,15 +25,36 @@
 using namespace vex;
 
 bool fireing = false;
+bool canFire = true;
+float UpMotorDist = 90;
+float SlideMotorDist = 90;
+float MagDist = 90;
+int FullMag = 10;
+int Mag = FullMag;
+bool reMessage = false;
 
 void Launch(){
-
+  //Change Fire State
   if (fireing == true){
-    fireing = false;
+    return;
   }else if (fireing == false){
     fireing = true;
   }
 
+}
+
+void Fire(){
+  //Fire In The Hole
+  UpMotor.spinFor(forward, UpMotorDist, degrees);
+}
+
+void Reload(){
+  //Reload The Barrel
+  ReLoadMotor.spinFor(forward, SlideMotorDist, degrees);
+  UpMotor.spinFor(forward, -UpMotorDist, degrees);
+  ReLoadMotor.spinFor(forward, -SlideMotorDist, degrees);
+  MagMotors.spinFor(forward, MagDist, degrees);
+  Mag --;
 }
 
 void Run(){
@@ -73,13 +95,32 @@ void Run(){
       d += 10;
     }
 
+    if(Controller1.ButtonB.pressing() && Mag < 1){
+      Mag = FullMag;
+      reMessage = false;
+    }
+
     MotorA.setVelocity(a, percent);
     MotorB.setVelocity(b, percent);
     MotorC.setVelocity(c, percent);
     MotorD.setVelocity(d, percent);
 
-    if (fireing == true){
+    if (fireing == true && canFire == true){
+      canFire = false;
+      Fire();
+      Reload();
+      canFire = true;
+      fireing = false;
     }else{
+      return;
+    }
+
+    if (Mag < 1 && reMessage == false){
+      Controller1.Screen.print("No More Bullets");
+      Controller1.Screen.newLine();
+      Controller1.Screen.newLine();
+      Controller1.Screen.print("Press B When Reloaded");
+      reMessage = true;
     }
 
   }
