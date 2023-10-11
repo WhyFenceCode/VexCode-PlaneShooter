@@ -15,6 +15,9 @@ motor MotorC = motor(PORT11, ratio18_1, false);
 motor MotorD = motor(PORT19, ratio18_1, true);
 motor UpMotor = motor(PORT17, ratio18_1, false);
 motor ReLoadMotor = motor(PORT6, ratio18_1, false);
+motor MagMotorsMotorA = motor(PORT12, ratio18_1, false);
+motor MagMotorsMotorB = motor(PORT13, ratio18_1, false);
+motor_group MagMotors = motor_group(MagMotorsMotorA, MagMotorsMotorB);
 
 // VEXcode generated functions
 // define variable for remote controller enable/disable
